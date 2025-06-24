@@ -14,6 +14,11 @@ def main():
 
     x=SCREEN_WIDTH/2
     y=SCREEN_HEIGHT/2
+    # Create Groups
+    group_updatable = pygame.sprite.Group()
+    group_drawable = pygame.sprite.Group()
+    Player.containers = (group_updatable, group_drawable)
+    # Initialize player object
     player_radius=PLAYER_RADIUS
     player=Player(x,y,player_radius)
     quit=False
@@ -22,8 +27,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
-        player.update(dt)
-        player.draw(screen)
+        #player.update(dt)
+        #player.draw(screen)
+        group_updatable.update(dt)
+        for drawable in group_drawable:
+            drawable.draw(screen)
         pygame.display.flip()
         dt=clock.tick(60)/1000
 if __name__ == "__main__":
