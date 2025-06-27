@@ -45,10 +45,15 @@ def main():
         #player.update(dt)
         #player.draw(screen)
         group_updatable.update(dt)
+        player.timer-=(dt)
         for asteroid in group_asteroids:
             if player.collision_check(asteroid):
                 print(f"Game Over!")
                 return quit==True
+            for shot in group_shots:
+                if shot.collision_check(asteroid):
+                    asteroid.split(dt)
+                    shot.kill()
         for drawable in group_drawable:
             drawable.draw(screen)
         pygame.display.flip()
